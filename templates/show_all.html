@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang = "en">
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Pass</title>
+    <a href="{{ url_for('index', filename = 'index.html') }}"><img alt="Pass" height="60" src="{{ url_for('static', filename = 'logo.png') }}" style="float:left; margin:10px 10px" width="60"></a>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename = 'apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename = 'favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename = 'favicon-16x16.png') }}">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="manifest" href="{{ url_for('static', filename = 'site.webmanifest') }}">
+
+    <style>
+    @font-face {
+      font-family: Krub;
+      src: url({{ url_for('static', filename = 'krub-regular.ttf') }});
+    }
+    p {
+      font-family: Krub;
+    }
+    .button {
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 22px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button1 {
+      background-color: white;
+      padding: 20px 60px;
+      color: black;
+      border: 2px solid #3cb371;
+      border-radius: 8px;
+    }
+    .button1:hover {
+      background-color: #3cb371;
+      padding: 20px 60px;
+      color: white;
+      border-radius: 8px;
+    }
+
+    .button2 {
+      background-color: white;
+      padding: 8px 30px;
+      font-size: 18px;
+      color: black;
+      border-radius: 8px;
+    }
+    .button2:hover {
+      background-color: #3cb371;
+      padding: 8px 30px;
+      font-size: 18px;
+      color: white;
+      border-radius: 8px;
+    }
+
+  .lowercenter {
+    margin: 0;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  .uppercenter {
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    bottom: 20%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 22px;
+    overflow: scroll;
+  }
+  .bottom {
+    margin: 0;
+    position: absolute;
+    top:95%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+  }
+  .right {
+    margin: 0;
+    position: absolute;
+    top:2%;
+    right:1%;
+    font-size: 18px;
+  }
+      </style>
+  </head>
+   <body>
+    {% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+        </div>
+        {% endfor %}
+
+        {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
+   <div class="right">
+       <a href="{{ url_for('new') }}"><button class="button button2" style="font-family:krub;">Add User</button></a>
+   </div>
+	<div class="uppercenter">
+      <table>
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>ID Number</th>
+               <th>Meal Plan</th>
+               <th>Balance</th>
+               <th>Count</th>
+            </tr>
+         </thead>
+
+         <tbody>
+            {% for student in students %}
+               <tr>
+                  <td>{{ student.name }}</td>
+                  <td>{{ student.idno }}</td>
+                  <td>{{ student.mealplan }}</td>
+                  <td>{{ student.balance }}</td>
+                  <td>{{ student.count }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+   <div class="bottom">
+      <p style="font-family:krub">Created by <a href="https://www.linkedin.com/in/abrarshawkat/" target="_blank" style="text-decoration: none;">Abrar Shawkat</a></p>
+    </div>
+   </body>
+</html>

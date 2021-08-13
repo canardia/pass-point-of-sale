@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Pass</title>
+    <a href="{{ url_for('index', filename = 'index.html') }}"><img alt="Pass" height="60" src="{{ url_for('static', filename = 'logo.png') }}" style="float:left; margin:10px 10px" width="60"></a>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename = 'apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename = 'favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename = 'favicon-16x16.png') }}">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="manifest" href="{{ url_for('static', filename = 'site.webmanifest') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'index.css') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename = 'jquery.cardswipe.js') }}"></script>
+
+    <style>
+    @font-face {
+      font-family: Krub;
+      src: url({{ url_for('static', filename = 'krub-regular.ttf') }});
+    }
+    p {
+      font-family: Krub;
+    }
+    .button {
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 22px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button1 {
+      background-color: white;
+      padding: 20px 60px;
+      color: black; 
+      border: 2px solid #3cb371;
+      border-radius: 8px;
+    }
+    .button1:hover {
+      background-color: #3cb371;
+      padding: 20px 60px;
+      color: white;
+      border-radius: 8px;
+    }
+
+    .smol_button {
+      background-color: white;
+      padding: 8px 60px;
+      color: black;
+      border: 2px solid #3cb371;
+      border-radius: 8px;
+    }
+    .smol_button:hover {
+      background-color: #3cb371;
+      padding: 8px 60px;
+      color: white;
+      border-radius: 8px;
+    }
+
+    .button2 {
+      background-color: white;
+      padding: 8px 30px;
+      font-size: 18px;
+      color: black; 
+      border-radius: 8px;
+    }
+    .button2:hover {
+      background-color: #3cb371;
+      padding: 8px 30px;
+      font-size: 18px;
+      color: white;
+      border-radius: 8px;
+    }
+
+  .lowercenter {
+    margin: 0;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  .uppercenter {
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 38px;
+  }
+  .midcenter {
+    margin: 0;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .bottom {
+    margin: 0;
+    position: absolute;
+    top:95%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+  }
+  .right {
+    margin: 0;
+    position: absolute;
+    top:2%;
+    right:1%;
+    font-size: 18px;
+  }
+      </style>
+  </head>
+  <body>
+    {% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+        </div>
+        {% endfor %}
+
+        {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
+    <div class="right">
+      <a href="{{ url_for('guestcsv', filename = 'guestcsv.html') }}"><button class="button button2" style="font-family:krub;">Guest List</button></a>
+<!--	  <a href="{{ url_for('new', filename = 'new.html') }}"><button class="button button2" style="font-family:krub;">New Student/Employee</button></a>-->
+	  <a href="{{ url_for('show_all', filename = 'show_all.html') }}"><button class="button button2" style="font-family:krub;">View Database</button></a>
+    </div>
+    <div class="uppercenter">
+      <p style="font-family:krub">Please swipe ID card or enter ID number</p>
+
+    </div>
+    <div class="midcenter">
+      <form action = "{{ request.path }}" method = "post">
+        <input type="text" id="name" name="idno" placeholder = "123456789" style="height:45px;font-size:14pt;"><br>
+        <br><input type = "submit" class="button button1" style="font-family:krub"  value = "Submit"/>
+      </form>
+        <br><br><br><a href="{{ url_for('guest', filename = 'guest.html') }}"><button class="button smol_button" style="font-family:krub">Guest</button></a>
+    </div>
+    <div class="bottom">
+      <p style="font-family:krub">Created by <a href="https://www.linkedin.com/in/abrarshawkat/" target="_blank" style="text-decoration: none;">Abrar Shawkat</a></p>
+    </div>
+
+	<!-- A modal-style message that appears while scanning -->
+	<div id="overlay">
+		<div id="scanning" class="dialog">
+			<p>Scanning...</p>
+		</div>
+	</div>
+
+	<div id="failure" class="dialog">
+		<p>Unrecognized card.</p>
+	</div>
+
+	<div id="success" class="dialog">
+		<p>Successful scan!</p>
+
+		<div id="properties">
+
+		</div>
+	</div>
+
+	<script type="text/javascript">
+
+		// Called by plugin on a successful scan.
+		var complete = function (data) {
+
+			// Is it a payment card?
+			if (data.type == "generic")
+				return;
+
+			// Copy data fields to form
+			$("#account").val(data.account);
+
+			$.ajax({
+				type: "POST",
+				url: "{{ url_for("swiped") }}",
+				contentType: "application/json",
+				data: JSON.stringify(data.account),
+				dataType: "json",
+				success: function(response) {
+				    location.href = "{{ url_for("success") }}";
+					console.log(response);
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});
+
+		};
+
+		// Event handler for scanstart.cardswipe.
+		var scanstart = function () {
+			$("#overlay").fadeIn(200);
+		};
+
+		// Event handler for scanend.cardswipe.
+		var scanend = function () {
+			$("#overlay").fadeOut(200);
+		};
+
+		// Event handler for success.cardswipe.  Displays returned data in a dialog
+		var success = function (event, data) {
+			$("#properties").empty();
+			// Iterate properties of parsed data
+			for (var key in data) {
+				if (data.hasOwnProperty(key)) {
+					var text = key + ': ' + data[key];
+					$("#properties").append('<div class="property">' + text + '</div>');
+				}
+			}
+			$("#success").fadeIn().delay(3000).fadeOut();
+		}
+
+		var failure = function () {
+			$("#failure").fadeIn().delay(1000).fadeOut();
+		}
+
+		// Initialize the plugin with default parser and callbacks.
+		//
+		// Set debug to true to watch the characters get captured and the state machine transitions
+		// in the javascript console. This requires a browser that supports the console.log function.
+		//
+		// Set firstLineOnly to true to invoke the parser after scanning the first line. This will speed up the
+		// time from the start of the scan to invoking your success callback.
+		$.cardswipe({
+			firstLineOnly: true,
+			success: complete,
+			parsers: ["illinois", "visa", "amex", "mastercard", "discover", "generic"],
+			debug: false
+		});
+
+		// Bind event listeners to the document
+		$(document)
+			.on("scanstart.cardswipe", scanstart)
+			.on("scanend.cardswipe", scanend)
+			.on("success.cardswipe", success)
+			.on("failure.cardswipe", failure)
+		;
+	</script>
+</body>
+</html>
