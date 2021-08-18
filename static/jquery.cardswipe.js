@@ -62,7 +62,7 @@
 
 		// Illinois parser.
 		illinois: function (rawData) {
-			// illinois starts with 6, and is 16 digits long.
+			// illinois starts with 63, and is 16 digits long.
 			var pattern = new RegExp("^%B(63[0-9]{14})\\^([A-Z ]+)/([A-Z ]+)(\\.[A-Z ]+)?\\^([0-9]{2})([0-9]{2})");
 
 			var match = pattern.exec(rawData);
